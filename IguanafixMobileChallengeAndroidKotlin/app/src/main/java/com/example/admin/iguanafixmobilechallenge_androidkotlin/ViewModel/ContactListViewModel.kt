@@ -9,7 +9,9 @@ import com.example.admin.iguanafixmobilechallenge_androidkotlin.Adapter.ContactL
 import com.example.admin.iguanafixmobilechallenge_androidkotlin.Model.Contact
 import com.example.admin.iguanafixmobilechallenge_androidkotlin.Retrofit.ContactDAO
 import com.example.admin.iguanafixmobilechallenge_androidkotlin.Retrofit.ResultListener
+import java.nio.channels.Selector
 import java.util.*
+import kotlin.Comparator
 import kotlin.collections.ArrayList
 
 class ContactListViewModel : ViewModel() {
@@ -48,7 +50,7 @@ class ContactListViewModel : ViewModel() {
         for (contact in contacts!!) {
             val fullNameToLowerCase = contact.first_name.toLowerCase() + contact.last_name.toLowerCase()
 
-            //paso todo a lower case para que no haya problema con mayusculas y minusculas
+            //paso t0d0 a lower case para que no haya problema con mayusculas y minusculas
             if (fullNameToLowerCase.contains(contactName.toLowerCase())) {
                 results.add(contact)
             }
@@ -59,9 +61,7 @@ class ContactListViewModel : ViewModel() {
 
 
     fun setsortedListToAdapter(contacts: List<Contact>) {
-
-    contacts.toSortedSet()
-
-        adapter!!.setContacts(contacts)
+         this.contacts = contacts.sortedWith(compareBy({it.first_name + it.last_name}, {it.first_name + it.last_name}))
+        adapter!!.setContacts(this.contacts!!)
     }
 }
